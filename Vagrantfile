@@ -45,10 +45,14 @@ end
 Vagrant.configure("2") do |config|
   config.vbguest.auto_update=false
   config.vm.box = "bento/ubuntu-16.04"
+  # frappe ports
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.network "forwarded_port", guest: 9000, host: 9000
   config.vm.network "forwarded_port", guest: 6787, host: 6787
-
+  # livereload port
+  config.vm.network "forwarded_port", guest: 35729, host: 35729
+  # ssh port
+  config.vm.network "forwarded_port", guest: 22, host: 8022
   config.ssh.forward_agent = true
 
   # Windows specific synced_folder settings
@@ -67,7 +71,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "./", "/vagrant"
   end
 
-  
+ 
   config.vm.provider "virtualbox" do |vb|
      # Customize the amount of memory and CPU on the VM:
      vb.memory = "2048"
